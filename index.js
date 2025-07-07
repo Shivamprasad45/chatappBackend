@@ -7,7 +7,7 @@ const  cors= require('cors')
 const app = express();
 
 app.use(cors());
-
+const PORT = process.env.PORT || 5000;
 const server= http.createServer(app);
 
 const io= new Server(server ,{
@@ -17,6 +17,11 @@ cors:{
 
 })
 
+
+app.use("/",(req,res)=>{
+res.send("Hello world")
+
+})
 const users = {};
 io.on("connection",(socket)=>{
     console.log("User connected" , socket.id)
@@ -48,4 +53,4 @@ socket.on("stop_typing", (username) => {
 
 }
 )
-server.listen(5000, ()=>console.log("Server started on http://localhost:5000"))
+server.listen(PORT, ()=>console.log("Server started on http://localhost:5000"))
