@@ -36,6 +36,11 @@ socket.on('register_user',(username)=>{
 users[socket.id] = username
 io.emit("online_users", Object.values(users));
 })
+// On client reaction
+socket.on("react_to_message", ({ messageId, emoji, reactor }) => {
+  // Broadcast reaction to all users
+  io.emit("message_reaction", { messageId, emoji, reactor });
+});
 
 socket.on('disconnect' ,()=>{
     delete users[socket.id];
